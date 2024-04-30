@@ -28,7 +28,7 @@ def main(cfg: DictConfig) -> None:
     with open(f"{cfg.paths.model_dir}/model_params.json", "w") as f:
         json.dump(params, f)
 
-    joblib.dump(model, f"{cfg.paths.model_dir}/model.joblib")
+    joblib.dump(model, f"{cfg.paths.model_dir}/model.pkl")
     logger.info("Completed training a model 🎉")
 
 

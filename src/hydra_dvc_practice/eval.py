@@ -16,7 +16,7 @@ def main(cfg: DictConfig) -> None:
     """Make predictions using the trained model."""
     logger.info("Making predictions...")
     test_df = pd.read_csv(f"{cfg.paths.data_dir}/test_scaled.csv")
-    model = joblib.load(f"{cfg.paths.model_dir}/model.joblib")
+    model = joblib.load(f"{cfg.paths.model_dir}/model.pkl")
 
     X_test = test_df.drop(columns=[cfg.target])
     y_test = test_df[cfg.target]

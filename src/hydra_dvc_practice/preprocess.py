@@ -1,7 +1,6 @@
 import logging
 
 import hydra
-import joblib
 import pandas as pd
 from omegaconf import DictConfig
 
@@ -20,8 +19,6 @@ def main(cfg: DictConfig) -> None:
     # scaling
     scaler = hydra.utils.instantiate(cfg.scaler)
     scaler.fit(train_df.drop(columns=[cfg.target]))
-
-    joblib.dump(scaler, f"{cfg.paths.data_dir}/scaler.joblib")
 
     train_df_scaled = pd.concat(
         [

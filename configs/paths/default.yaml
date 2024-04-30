@@ -1,0 +1,3 @@
+root_dir: ${oc.env:HOME}/Projects/hydra-dvc-practice # set your root directory here
+data_dir: ${paths.root_dir}/data
+model_dir: ${paths.root_dir}/data

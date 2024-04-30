@@ -1,0 +1,126 @@
+[project]
+name = "hydra-dvc-practice"
+version = "0.1.0"
+description = "This is a project description."
+authors = [
+    { name = "mst8823", email = "" },
+]
+dependencies = [
+    "pytest>=8.2.0",
+    "pre-commit>=3.7.0",
+    "dvc>=3.50.1",
+    "hydra-core>=1.3.2",
+    "hydra-colorlog>=1.2.0",
+    "pandas>=2.2.2",
+    "scikit-learn>=1.4.2",
+    "joblib>=1.4.0",
+]
+readme = "README.md"
+requires-python = ">= 3.11"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "ruff>=0.4.2",
+    "mypy>=1.10.0",
+    "ipykernel>=6.29.4",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hydra-dvc-practice"]
+
+
+[tool.ruff]
+line-length = 120
+# https://docs.astral.sh/ruff/rules/
+lint.select = [
+    "F", # pyflakes
+    "E", # pycodestyle
+    "W", # pycodestyle warnings
+    "I", # isort
+    "D", # pydocstyle
+    "B", # flakes8-bugbear
+    "UP", # pyupgrade
+    "N", # pep8-naming
+    "C90", # mccabe
+]
+lint.fixable =["ALL"]
+lint.unfixable = [
+    "F401",  # module imported but unused
+    "F841",  # local variable is assigned to but never used
+]
+lint.ignore = [
+    "E501",  # line too long
+    "E402",  # module level import not at top of file
+    "D100",  # missing docstring in public module
+    "D102",  # missing docstring in public method
+    "D104",  # missing docstring in public package
+    "D105",  # missing docstring in magic method
+    "D106",  # missing docstring in public nested class
+    "D107",  # missing docstring in __init__
+    "D203",  # 1 blank line required before class docstring
+    "D213",  # multi-line docstring summary should start at the second line
+    "D400",  # first line should end with a period
+    "D401",  # first line should be in imperative mood
+    "D407",  # missing dashed underline after section
+    "D408",  # section underline should be in the line following the section's name
+    "D409",  # section underline should match the length of its name
+    "D410",  # missing blank line after section
+    "D411",  # missing blank line before section
+    "D412",  # no blank lines allowed between a section and its content
+    "D413",  # missing blank line after last section
+    "D414",  # missing blank line before the first section
+    "D415",  # first line should end with a period, question mark, or exclamation point
+    "D416",  # section name should end with a semicolon
+    "D417",  # missing blank line after section name
+    "N806",  # variable in function should be lowercase
+
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.mypy]
+# https://caddi.tech/archives/4506
+exclude = ["__init__"]
+python_version = "3.11"
+allow_redefinition = true
+allow_untyped_globals = false
+check_untyped_defs = true
+color_output = true
+disallow_incomplete_defs = true
+disallow_untyped_calls = false
+disallow_untyped_decorators = false
+disallow_untyped_defs = true
+error_summary = true
+ignore_missing_imports = true
+implicit_reexport = true
+namespace_packages = true
+no_implicit_optional = true
+pretty = true
+show_column_numbers = true
+show_error_codes = true
+show_error_context = true
+show_traceback = true
+strict = true
+warn_no_return = true
+warn_redundant_casts = true
+warn_return_any = false
+warn_unreachable = true
+warn_unused_configs = true
+warn_unused_ignores = false
+disallow_any_generics = false
+
+[[tool.mypy.overrides]]
+module = [
+    "tests.*",
+]
+ignore_errors = true
+ignore_missing_imports = true

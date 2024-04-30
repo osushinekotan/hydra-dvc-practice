@@ -1,0 +1,18 @@
+defaults:
+  - hydra: default
+  - paths: default
+  - _self_
+
+test_size: 0.2
+seed: 42
+target: target
+
+# preprocessing
+scaler:
+  _target_: sklearn.preprocessing.StandardScaler
+
+# training
+model:
+  _target_: sklearn.linear_model.LogisticRegression
+  C: 1.0
+  random_state: ${seed}

@@ -1,19 +1,18 @@
 import json
 import logging
 
-import hydra
 import joblib
 import pandas as pd
-from omegaconf import DictConfig
+from omegaconf import OmegaConf
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-@hydra.main(config_path="../../configs", config_name="config", version_base="1.3")
-def main(cfg: DictConfig) -> None:
+def main() -> None:
     """Make predictions using the trained model."""
+    cfg = OmegaConf.load("conf/params.yaml")
     logger.info("Making predictions...")
     test_df = pd.read_csv(f"{cfg.paths.data_dir}/test_scaled.csv")
     model = joblib.load(f"{cfg.paths.model_dir}/model.pkl")

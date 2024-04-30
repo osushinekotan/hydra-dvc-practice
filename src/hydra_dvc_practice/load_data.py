@@ -1,8 +1,7 @@
 import logging
 
-import hydra
 import pandas as pd
-from omegaconf import DictConfig
+from omegaconf import OmegaConf
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 
@@ -10,9 +9,9 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-@hydra.main(config_path="../../configs", config_name="config", version_base="1.3")
-def main(cfg: DictConfig) -> None:
+def main() -> None:
     """Load the breast cancer dataset and split it into train and test sets."""
+    cfg = OmegaConf.load("conf/params.yaml")
     logger.info("Loading and splitting the dataset...")
     feature_names = load_breast_cancer()["feature_names"]
     raw_df = pd.concat(

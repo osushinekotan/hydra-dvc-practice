@@ -2,15 +2,15 @@ import logging
 
 import hydra
 import pandas as pd
-from omegaconf import DictConfig
+from omegaconf import OmegaConf
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-@hydra.main(config_path="../../configs", config_name="config", version_base="1.3")
-def main(cfg: DictConfig) -> None:
+def main() -> None:
     """Preprocess the raw data."""
+    cfg = OmegaConf.load("conf/params.yaml")
     logger.info("Preprocessing the raw data...")
     logger.info(f"Scaler: {cfg.scaler._target_}")
     train_df = pd.read_csv(f"{cfg.paths.data_dir}/train.csv")

@@ -1,18 +1,15 @@
 import json
-import logging
 
 import hydra
 import joblib
 import pandas as pd
+from loguru import logger
 from omegaconf import OmegaConf
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 
 def main() -> None:
     """Train a model."""
-    cfg = OmegaConf.load("conf/params.yaml")
+    cfg = OmegaConf.load("params.yaml")
     logger.info("Training a model... (no validation for simplicity)")
     logger.info(f"Model: {cfg.model._target_}")
     train_df = pd.read_csv(f"{cfg.paths.data_dir}/train_scaled.csv")

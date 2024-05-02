@@ -1,18 +1,15 @@
 import json
-import logging
 
 import joblib
 import pandas as pd
+from loguru import logger
 from omegaconf import OmegaConf
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 
 def main() -> None:
     """Make predictions using the trained model."""
-    cfg = OmegaConf.load("conf/params.yaml")
+    cfg = OmegaConf.load("params.yaml")
     logger.info("Making predictions...")
     test_df = pd.read_csv(f"{cfg.paths.data_dir}/test_scaled.csv")
     model = joblib.load(f"{cfg.paths.model_dir}/model.pkl")

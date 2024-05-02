@@ -1,16 +1,12 @@
-import logging
-
 import hydra
 import pandas as pd
+from loguru import logger
 from omegaconf import OmegaConf
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 
 def main() -> None:
     """Preprocess the raw data."""
-    cfg = OmegaConf.load("conf/params.yaml")
+    cfg = OmegaConf.load("params.yaml")
     logger.info("Preprocessing the raw data...")
     logger.info(f"Scaler: {cfg.scaler._target_}")
     train_df = pd.read_csv(f"{cfg.paths.data_dir}/train.csv")

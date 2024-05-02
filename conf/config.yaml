@@ -1,6 +1,6 @@
 defaults:
-  - hydra: default
   - paths: default
+  - models: logistic_regression
   - _self_
 
 test_size: 0.2

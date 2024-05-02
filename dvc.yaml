@@ -1,0 +1,39 @@
+stages:
+  # https://dvc.org/doc/user-guide/project-structure/dvcyaml-files#stages
+  load_data:
+    cmd: rye run python src/hydra_dvc_practice/load_data.py
+    deps:
+      - src/hydra_dvc_practice/load_data.py
+    outs:
+      - data/train.csv
+      - data/test.csv
+
+  preprocess:
+    cmd: rye run python src/hydra_dvc_practice/preprocess.py
+    deps:
+      - data/train.csv
+      - data/test.csv
+      - src/hydra_dvc_practice/preprocess.py
+    outs:
+      - data/train_scaled.csv
+      - data/test_scaled.csv
+
+  train:
+    cmd: rye run python src/hydra_dvc_practice/train.py
+    deps:
+      - data/train_scaled.csv
+      - data/test_scaled.csv
+      - src/hydra_dvc_practice/train.py
+    outs:
+      - data/model.pkl
+      - data/model_params.json
+
+  eval:
+    cmd: rye run python src/hydra_dvc_practice/eval.py
+    deps:
+      - data/model.pkl
+      - src/hydra_dvc_practice/eval.py
+    outs:
+      - data/test_predictions.csv
+    metrics:
+      - data/evaluation_results.json

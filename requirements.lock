@@ -153,6 +153,8 @@ kombu==5.3.7
     # via celery
     # via dvc
     # via dvc-task
+loguru==0.7.2
+    # via hydra-dvc-practice
 markdown-it-py==3.0.0
     # via rich
 mdurl==0.1.2

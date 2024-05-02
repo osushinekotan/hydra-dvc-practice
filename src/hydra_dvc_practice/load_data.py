@@ -1,17 +1,13 @@
-import logging
-
 import pandas as pd
+from loguru import logger
 from omegaconf import OmegaConf
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
 
 def main() -> None:
     """Load the breast cancer dataset and split it into train and test sets."""
-    cfg = OmegaConf.load("conf/params.yaml")
+    cfg = OmegaConf.load("params.yaml")
     logger.info("Loading and splitting the dataset...")
     feature_names = load_breast_cancer()["feature_names"]
     raw_df = pd.concat(

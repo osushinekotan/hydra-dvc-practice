@@ -5,9 +5,9 @@ paths:
 model:
   _target_: sklearn.linear_model.LogisticRegression
   C: 1.0
-  random_state: 42
+  random_state: 1
 test_size: 0.2
-seed: 42
+seed: 1
 target: target
 scaler:
   _target_: sklearn.preprocessing.StandardScaler

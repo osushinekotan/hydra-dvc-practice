@@ -7,26 +7,31 @@ stages:
       hash: md5
       md5: 615eaf5882f5bc269938140317c166d3
       size: 1205
+    params:
+      params.yaml:
+        seed: 1
+        target: target
+        test_size: 0.2
     outs:
     - path: data/test.csv
       hash: md5
-      md5: ac4a4f354095b5460a14885092b38a87
-      size: 24647
+      md5: af1ab44c4b598a001cf82ebf80b1c0cd
+      size: 24750
     - path: data/train.csv
       hash: md5
-      md5: 917798806c663e0530df6c3c0935d1ba
-      size: 97230
+      md5: 47d3311b4378eb387bca7ceb9a917cea
+      size: 97127
   preprocess:
     cmd: rye run python src/hydra_dvc_practice/preprocess.py
     deps:
     - path: data/test.csv
       hash: md5
-      md5: ac4a4f354095b5460a14885092b38a87
-      size: 24647
+      md5: af1ab44c4b598a001cf82ebf80b1c0cd
+      size: 24750
     - path: data/train.csv
       hash: md5
-      md5: 917798806c663e0530df6c3c0935d1ba
-      size: 97230
+      md5: 47d3311b4378eb387bca7ceb9a917cea
+      size: 97127
     - path: src/hydra_dvc_practice/preprocess.py
       hash: md5
       md5: e54f10e62dfe0159a19ca334a6ef76ec
@@ -34,23 +39,23 @@ stages:
     outs:
     - path: data/test_scaled.csv
       hash: md5
-      md5: 604030ade380161bb68a14341096521e
-      size: 68205
+      md5: b9cf232ecc79031ce7bb4ec065c92b40
+      size: 68411
     - path: data/train_scaled.csv
       hash: md5
-      md5: ccfc37b667b60e661314dc2114f1e081
-      size: 271019
+      md5: e4dd9e44a910d27a0b46aa9975175ab7
+      size: 270882
   train:
     cmd: rye run python src/hydra_dvc_practice/train.py
     deps:
     - path: data/test_scaled.csv
       hash: md5
-      md5: 604030ade380161bb68a14341096521e
-      size: 68205
+      md5: b9cf232ecc79031ce7bb4ec065c92b40
+      size: 68411
     - path: data/train_scaled.csv
       hash: md5
-      md5: ccfc37b667b60e661314dc2114f1e081
-      size: 271019
+      md5: e4dd9e44a910d27a0b46aa9975175ab7
+      size: 270882
     - path: src/hydra_dvc_practice/train.py
       hash: md5
       md5: 21427cd4d3418df6fe0057cf910852eb
@@ -58,18 +63,18 @@ stages:
     outs:
     - path: data/model.pkl
       hash: md5
-      md5: e10ed45bb075811742932a8f6dd95a91
+      md5: c38580e468f2a51493b4541d65edc67c
       size: 2063
     - path: data/model_params.json
       hash: md5
-      md5: af046daa382336a117ba000356fae4dc
-      size: 274
+      md5: a74d4dc6761d8fdfd293c0f1d1dc27e7
+      size: 273
   eval:
     cmd: rye run python src/hydra_dvc_practice/eval.py
     deps:
     - path: data/model.pkl
       hash: md5
-      md5: e10ed45bb075811742932a8f6dd95a91
+      md5: c38580e468f2a51493b4541d65edc67c
       size: 2063
     - path: src/hydra_dvc_practice/eval.py
       hash: md5
@@ -78,9 +83,9 @@ stages:
     outs:
     - path: data/evaluation_results.json
       hash: md5
-      md5: a537e92f6661e0cba8107008d9b7c149
+      md5: 5c3b7e32676188220bb95648ab97753b
       size: 121
     - path: data/test_predictions.csv
       hash: md5
-      md5: 48d18a4fb87dea06038b7f4efee6af46
-      size: 67357
+      md5: d03a2d5d4ebf25ae54e8c65f9e648e73
+      size: 67510

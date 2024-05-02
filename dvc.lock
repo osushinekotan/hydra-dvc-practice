@@ -1,0 +1,86 @@
+schema: '2.0'
+stages:
+  load_data:
+    cmd: rye run python src/hydra_dvc_practice/load_data.py
+    deps:
+    - path: src/hydra_dvc_practice/load_data.py
+      hash: md5
+      md5: 615eaf5882f5bc269938140317c166d3
+      size: 1205
+    outs:
+    - path: data/test.csv
+      hash: md5
+      md5: ac4a4f354095b5460a14885092b38a87
+      size: 24647
+    - path: data/train.csv
+      hash: md5
+      md5: 917798806c663e0530df6c3c0935d1ba
+      size: 97230
+  preprocess:
+    cmd: rye run python src/hydra_dvc_practice/preprocess.py
+    deps:
+    - path: data/test.csv
+      hash: md5
+      md5: ac4a4f354095b5460a14885092b38a87
+      size: 24647
+    - path: data/train.csv
+      hash: md5
+      md5: 917798806c663e0530df6c3c0935d1ba
+      size: 97230
+    - path: src/hydra_dvc_practice/preprocess.py
+      hash: md5
+      md5: e54f10e62dfe0159a19ca334a6ef76ec
+      size: 1494
+    outs:
+    - path: data/test_scaled.csv
+      hash: md5
+      md5: 604030ade380161bb68a14341096521e
+      size: 68205
+    - path: data/train_scaled.csv
+      hash: md5
+      md5: ccfc37b667b60e661314dc2114f1e081
+      size: 271019
+  train:
+    cmd: rye run python src/hydra_dvc_practice/train.py
+    deps:
+    - path: data/test_scaled.csv
+      hash: md5
+      md5: 604030ade380161bb68a14341096521e
+      size: 68205
+    - path: data/train_scaled.csv
+      hash: md5
+      md5: ccfc37b667b60e661314dc2114f1e081
+      size: 271019
+    - path: src/hydra_dvc_practice/train.py
+      hash: md5
+      md5: 21427cd4d3418df6fe0057cf910852eb
+      size: 907
+    outs:
+    - path: data/model.pkl
+      hash: md5
+      md5: e10ed45bb075811742932a8f6dd95a91
+      size: 2063
+    - path: data/model_params.json
+      hash: md5
+      md5: af046daa382336a117ba000356fae4dc
+      size: 274
+  eval:
+    cmd: rye run python src/hydra_dvc_practice/eval.py
+    deps:
+    - path: data/model.pkl
+      hash: md5
+      md5: e10ed45bb075811742932a8f6dd95a91
+      size: 2063
+    - path: src/hydra_dvc_practice/eval.py
+      hash: md5
+      md5: 472a2b94f4d2bfabd532c7c0e7528301
+      size: 1407
+    outs:
+    - path: data/evaluation_results.json
+      hash: md5
+      md5: a537e92f6661e0cba8107008d9b7c149
+      size: 121
+    - path: data/test_predictions.csv
+      hash: md5
+      md5: 48d18a4fb87dea06038b7f4efee6af46
+      size: 67357

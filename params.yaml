@@ -1,0 +1,17 @@
+paths:
+  root_dir: /Users/masato/Projects/hydra-dvc-practice
+  data_dir: /Users/masato/Projects/hydra-dvc-practice/data
+  model_dir: /Users/masato/Projects/hydra-dvc-practice/data
+models:
+  _target_: sklearn.linear_model.LogisticRegression
+  C: 1.0
+  random_state: 42
+test_size: 0.2
+seed: 42
+target: target
+scaler:
+  _target_: sklearn.preprocessing.StandardScaler
+model:
+  _target_: sklearn.linear_model.LogisticRegression
+  C: 1.0
+  random_state: 42

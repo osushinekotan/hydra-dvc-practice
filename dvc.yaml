@@ -7,6 +7,11 @@ stages:
     outs:
       - data/train.csv
       - data/test.csv
+    params:
+      - params.yaml: # track specific params from custom file
+          - test_size
+          - target
+          - seed
 
   preprocess:
     cmd: rye run python src/hydra_dvc_practice/preprocess.py

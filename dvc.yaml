@@ -1,5 +1,6 @@
 stages:
   # https://dvc.org/doc/user-guide/project-structure/dvcyaml-files#stages
+  # https://dvc.org/doc/user-guide/project-structure/dvcyaml-files#stage-entries
   load_data:
     cmd: rye run python src/hydra_dvc_practice/load_data.py
     deps:
@@ -8,10 +9,10 @@ stages:
       - data/train.csv
       - data/test.csv
     params:
-      - params.yaml: # track specific params from custom file
-          - test_size
-          - target
-          - seed
+      - test_size
+      - target
+      - seed
+      - paths
 
   preprocess:
     cmd: rye run python src/hydra_dvc_practice/preprocess.py
@@ -22,6 +23,8 @@ stages:
     outs:
       - data/train_scaled.csv
       - data/test_scaled.csv
+    params:
+      - scaler
 
   train:
     cmd: rye run python src/hydra_dvc_practice/train.py
@@ -32,6 +35,8 @@ stages:
     outs:
       - data/model.pkl
       - data/model_params.json
+    params:
+      - model
 
   eval:
     cmd: rye run python src/hydra_dvc_practice/eval.py

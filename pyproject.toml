@@ -15,6 +15,7 @@ dependencies = [
     "joblib>=1.4.0",
     "hydra-colorlog>=1.2.0",
     "loguru>=0.7.2",
+    "dvc-gs>=3.0.1",
 ]
 readme = "README.md"
 requires-python = ">= 3.11"

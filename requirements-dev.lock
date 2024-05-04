@@ -11,6 +11,7 @@
 aiohttp==3.9.5
     # via aiohttp-retry
     # via fsspec
+    # via gcsfs
 aiohttp-retry==2.8.3
     # via dvc-http
     # via scmrepo
@@ -40,6 +41,8 @@ attrs==23.2.0
     # via sqltrie
 billiard==4.2.0
     # via celery
+cachetools==5.3.3
+    # via google-auth
 celery==5.4.0
     # via dvc
     # via dvc-task
@@ -77,6 +80,7 @@ cryptography==42.0.5
 debugpy==1.8.1
     # via ipykernel
 decorator==5.1.1
+    # via gcsfs
     # via ipython
 dictdiffer==0.9.0
     # via dvc-data
@@ -94,9 +98,12 @@ dulwich==0.22.1
     # via dvc-studio-client
     # via scmrepo
 dvc==3.50.1
+    # via dvc-gs
     # via hydra-dvc-practice
 dvc-data==3.15.1
     # via dvc
+dvc-gs==3.0.1
+    # via hydra-dvc-practice
 dvc-http==2.32.0
     # via dvc
 dvc-objects==5.1.0
@@ -127,6 +134,7 @@ fsspec==2024.3.1
     # via dvc-data
     # via dvc-http
     # via dvc-objects
+    # via gcsfs
     # via scmrepo
 funcy==2.0
     # via dvc
@@ -135,10 +143,34 @@ funcy==2.0
     # via dvc-task
     # via gto
     # via scmrepo
+gcsfs==2024.3.1
+    # via dvc-gs
 gitdb==4.0.11
     # via gitpython
 gitpython==3.1.43
     # via scmrepo
+google-api-core==2.19.0
+    # via google-cloud-core
+    # via google-cloud-storage
+google-auth==2.29.0
+    # via gcsfs
+    # via google-api-core
+    # via google-auth-oauthlib
+    # via google-cloud-core
+    # via google-cloud-storage
+google-auth-oauthlib==1.2.0
+    # via gcsfs
+google-cloud-core==2.4.1
+    # via google-cloud-storage
+google-cloud-storage==2.16.0
+    # via gcsfs
+google-crc32c==1.5.0
+    # via google-cloud-storage
+    # via google-resumable-media
+google-resumable-media==2.7.0
+    # via google-cloud-storage
+googleapis-common-protos==1.63.0
+    # via google-api-core
 grandalf==0.8
     # via dvc
 gto==1.7.1
@@ -200,6 +232,8 @@ numpy==1.26.4
     # via pandas
     # via scikit-learn
     # via scipy
+oauthlib==3.2.2
+    # via requests-oauthlib
 omegaconf==2.3.0
     # via dvc
     # via hydra-core
@@ -230,6 +264,12 @@ pre-commit==3.7.0
 prompt-toolkit==3.0.43
     # via click-repl
     # via ipython
+proto-plus==1.23.0
+    # via google-api-core
+protobuf==4.25.3
+    # via google-api-core
+    # via googleapis-common-protos
+    # via proto-plus
 psutil==5.9.8
     # via dvc
     # via flufl-lock
@@ -238,6 +278,11 @@ ptyprocess==0.7.0
     # via pexpect
 pure-eval==0.2.2
     # via stack-data
+pyasn1==0.6.0
+    # via pyasn1-modules
+    # via rsa
+pyasn1-modules==0.4.0
+    # via google-auth
 pycparser==2.22
     # via cffi
 pydantic==2.7.1
@@ -277,11 +322,19 @@ pyzmq==26.0.2
 requests==2.31.0
     # via dvc
     # via dvc-studio-client
+    # via gcsfs
+    # via google-api-core
+    # via google-cloud-storage
     # via iterative-telemetry
+    # via requests-oauthlib
+requests-oauthlib==2.0.0
+    # via google-auth-oauthlib
 rich==13.7.1
     # via dvc
     # via gto
     # via typer
+rsa==4.9
+    # via google-auth
 ruamel-yaml==0.18.6
     # via dvc
     # via gto

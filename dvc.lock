@@ -9,73 +9,87 @@ stages:
       size: 1205
     params:
       params.yaml:
-        seed: 1
+        paths:
+          root_dir: /Users/masato/Projects/hydra-dvc-practice
+          data_dir: /Users/masato/Projects/hydra-dvc-practice/data
+          model_dir: /Users/masato/Projects/hydra-dvc-practice/data
+        seed: 42
         target: target
         test_size: 0.2
     outs:
     - path: data/test.csv
       hash: md5
-      md5: af1ab44c4b598a001cf82ebf80b1c0cd
-      size: 24750
+      md5: ac4a4f354095b5460a14885092b38a87
+      size: 24647
     - path: data/train.csv
       hash: md5
-      md5: 47d3311b4378eb387bca7ceb9a917cea
-      size: 97127
+      md5: 917798806c663e0530df6c3c0935d1ba
+      size: 97230
   preprocess:
     cmd: rye run python src/hydra_dvc_practice/preprocess.py
     deps:
     - path: data/test.csv
       hash: md5
-      md5: af1ab44c4b598a001cf82ebf80b1c0cd
-      size: 24750
+      md5: ac4a4f354095b5460a14885092b38a87
+      size: 24647
     - path: data/train.csv
       hash: md5
-      md5: 47d3311b4378eb387bca7ceb9a917cea
-      size: 97127
+      md5: 917798806c663e0530df6c3c0935d1ba
+      size: 97230
     - path: src/hydra_dvc_practice/preprocess.py
       hash: md5
       md5: e54f10e62dfe0159a19ca334a6ef76ec
       size: 1494
+    params:
+      params.yaml:
+        scaler:
+          _target_: sklearn.preprocessing.StandardScaler
     outs:
     - path: data/test_scaled.csv
       hash: md5
-      md5: b9cf232ecc79031ce7bb4ec065c92b40
-      size: 68411
+      md5: 604030ade380161bb68a14341096521e
+      size: 68205
     - path: data/train_scaled.csv
       hash: md5
-      md5: e4dd9e44a910d27a0b46aa9975175ab7
-      size: 270882
+      md5: ccfc37b667b60e661314dc2114f1e081
+      size: 271019
   train:
     cmd: rye run python src/hydra_dvc_practice/train.py
     deps:
     - path: data/test_scaled.csv
       hash: md5
-      md5: b9cf232ecc79031ce7bb4ec065c92b40
-      size: 68411
+      md5: 604030ade380161bb68a14341096521e
+      size: 68205
     - path: data/train_scaled.csv
       hash: md5
-      md5: e4dd9e44a910d27a0b46aa9975175ab7
-      size: 270882
+      md5: ccfc37b667b60e661314dc2114f1e081
+      size: 271019
     - path: src/hydra_dvc_practice/train.py
       hash: md5
       md5: 21427cd4d3418df6fe0057cf910852eb
       size: 907
+    params:
+      params.yaml:
+        model:
+          _target_: sklearn.ensemble.RandomForestClassifier
+          n_estimators: 100
+          random_state: 42
     outs:
     - path: data/model.pkl
       hash: md5
-      md5: c38580e468f2a51493b4541d65edc67c
-      size: 2063
+      md5: ba084273631b3dfaed4f420a87dbea5b
+      size: 326265
     - path: data/model_params.json
       hash: md5
-      md5: a74d4dc6761d8fdfd293c0f1d1dc27e7
-      size: 273
+      md5: 9d4e320b49303bf00d3f22564bf57432
+      size: 413
   eval:
     cmd: rye run python src/hydra_dvc_practice/eval.py
     deps:
     - path: data/model.pkl
       hash: md5
-      md5: c38580e468f2a51493b4541d65edc67c
-      size: 2063
+      md5: ba084273631b3dfaed4f420a87dbea5b
+      size: 326265
     - path: src/hydra_dvc_practice/eval.py
       hash: md5
       md5: 472a2b94f4d2bfabd532c7c0e7528301
@@ -83,9 +97,9 @@ stages:
     outs:
     - path: data/evaluation_results.json
       hash: md5
-      md5: 5c3b7e32676188220bb95648ab97753b
-      size: 121
+      md5: f8b133ba46a8b8956177e0d4eaa81ae8
+      size: 120
     - path: data/test_predictions.csv
       hash: md5
-      md5: d03a2d5d4ebf25ae54e8c65f9e648e73
-      size: 67510
+      md5: 47209c52c23fa51026e25fa409d59e4c
+      size: 67357
